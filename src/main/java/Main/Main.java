@@ -1,8 +1,8 @@
 package Main;
 
-import Characters.Creature;
-import Characters.Monster;
-import Characters.Player;
+import Game.Creature;
+import Game.Monster;
+import Game.Player;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,6 +32,7 @@ public class Main {
         monster.attack(player);
         monster.attack(player);
         player.attack(monster);
+
 
     }
 }

@@ -1,4 +1,4 @@
-package Characters;
+package Game;
 
 public class Player extends Creature{
 
