@@ -8,8 +8,9 @@ public abstract class Creature {
     private final int damageLowerLimit;
     private final int damageUpperLimit;
     private final long MAX_HP_VALUE;
-    private AttackModifier attackModifier = new DefaultAttackModifier();
-    private DiceToss dice = new SixEdgedDice();
+    private AttackModifier attackModifier;
+    private DiceToss dice;
+    private RandomValue ruleForRandom;
 
     protected void setAttackModifier(AttackModifier attackModifier) {
         this.attackModifier = attackModifier;
@@ -23,7 +24,18 @@ public abstract class Creature {
         this.ruleForRandom = ruleForRandom;
     }
 
-    private RandomValue ruleForRandom = new DefaultRandom();
+    protected void setDefaultAttackModifier() {
+        this.attackModifier = new DefaultAttackModifier();
+    }
+
+    protected void setDefaultDice() {
+        this.dice = new SixEdgedDice();
+    }
+
+    protected void setDefaultRuleForRandom() {
+        this.ruleForRandom = new DefaultRandom();
+    }
+
     public Creature(int attackValue,
                     int defendValue,
                     long HPValue,
@@ -46,6 +58,10 @@ public abstract class Creature {
         this.MAX_HP_VALUE = HPValue;
         this.damageLowerLimit = damageLowerLimit;
         this.damageUpperLimit = damageUpperLimit;
+
+        setDefaultDice();
+        setDefaultAttackModifier();
+        setDefaultRuleForRandom();
     }
 
     protected int getAttackValue() {
