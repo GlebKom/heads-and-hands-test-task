@@ -1,5 +1,5 @@
 package Game;
 
-interface DiceToss {
+public interface DiceToss {
     int toss();
 }

@@ -8,6 +8,22 @@ public abstract class Creature {
     private final int damageLowerLimit;
     private final int damageUpperLimit;
     private final long MAX_HP_VALUE;
+    private AttackModifier attackModifier = new DefaultAttackModifier();
+    private DiceToss dice = new SixEdgedDice();
+
+    protected void setAttackModifier(AttackModifier attackModifier) {
+        this.attackModifier = attackModifier;
+    }
+
+    protected void setDice(DiceToss dice) {
+        this.dice = dice;
+    }
+
+    protected void setRuleForRandom(RandomValue ruleForRandom) {
+        this.ruleForRandom = ruleForRandom;
+    }
+
+    private RandomValue ruleForRandom = new DefaultRandom();
     public Creature(int attackValue,
                     int defendValue,
                     long HPValue,
@@ -51,10 +67,8 @@ public abstract class Creature {
 
     protected void setHPValue(long HPValue) {
         if (HPValue <= 0) {
-
             // hp < 0 means, that this character is already dead
             this.HPValue = 0;
-            System.out.println(this.getClass().getName() + "is dead.");
 
         } else {
             this.HPValue = HPValue;
@@ -93,16 +107,10 @@ public abstract class Creature {
 
         } else {
 
-            // counting attack modifier according to tech specifications
-            AttackModifier attackModifier = new DefaultAttackModifier();
-
-            // creating a dice
-            DiceToss dice = new SixEdgedDice();
-
             // checking is at least one dice toss was successful or not, by default it is not
             boolean isSuccess = false;
-            int triesCount = attackModifier.getAttackModifier(this, enemy) > 0
-                    ? attackModifier.getAttackModifier(this, enemy)
+            int triesCount = this.attackModifier.getAttackModifier(this, enemy) > 0
+                    ? this.attackModifier.getAttackModifier(this, enemy)
                     : 1;
 
             // tossing a dice
@@ -115,18 +123,31 @@ public abstract class Creature {
 
             // decreasing enemy's hp if toss was successful
             if (isSuccess) {
-                RandomValue randomDamage = new DefaultRandom();
-                int damageGiven = randomDamage.randomValue(this.getDamageLowerLimit(), this.getDamageUpperLimit());
-
-                System.out.println(this.getClass().getName() + " attacked " + enemy.getClass().getName() +
-                        " and caused " + damageGiven + " damage. Enemy's HP : " + enemy.getHPValue());
+                int damageGiven = ruleForRandom.randomValue(this.getDamageLowerLimit(), this.getDamageUpperLimit());
 
                 enemy.setHPValue(enemy.getHPValue() - damageGiven);
+
+                System.out.println(this.getClass().getName() + " attacked " + enemy.getClass().getName() +
+                        " and caused " + damageGiven + " damage. " + enemy.getClass().getName() + "'s HP : " + enemy.getHPValue());
 
             } else {
                 System.out.println(this.getClass().getName() + " tried to attack " + enemy.getClass().getName() +
                         " but failed ");
             }
         }
+    }
+
+    public void showInfo() {
+        System.out.printf("Name: %s\n" +
+                "Attack value : %d\n" +
+                "Armor value : %d\n" +
+                "HP value : %d\n" +
+                "Damage : %d - %d\n\n",
+                this.getClass().getName(),
+                this.getAttackValue(),
+                this.getDefendValue(),
+                this.getHPValue(),
+                this.getDamageLowerLimit(),
+                this.getDamageUpperLimit());
     }
 }
