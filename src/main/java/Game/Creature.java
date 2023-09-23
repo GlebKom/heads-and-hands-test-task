@@ -12,30 +12,6 @@ public abstract class Creature {
     private DiceToss dice;
     private RandomValue ruleForRandom;
 
-    protected void setAttackModifier(AttackModifier attackModifier) {
-        this.attackModifier = attackModifier;
-    }
-
-    protected void setDice(DiceToss dice) {
-        this.dice = dice;
-    }
-
-    protected void setRuleForRandom(RandomValue ruleForRandom) {
-        this.ruleForRandom = ruleForRandom;
-    }
-
-    protected void setDefaultAttackModifier() {
-        this.attackModifier = new DefaultAttackModifier();
-    }
-
-    protected void setDefaultDice() {
-        this.dice = new SixEdgedDice();
-    }
-
-    protected void setDefaultRuleForRandom() {
-        this.ruleForRandom = new DefaultRandom();
-    }
-
     public Creature(int attackValue,
                     int defendValue,
                     long HPValue,
@@ -62,6 +38,30 @@ public abstract class Creature {
         setDefaultDice();
         setDefaultAttackModifier();
         setDefaultRuleForRandom();
+    }
+
+    protected void setAttackModifier(AttackModifier attackModifier) {
+        this.attackModifier = attackModifier;
+    }
+
+    protected void setDice(DiceToss dice) {
+        this.dice = dice;
+    }
+
+    protected void setRuleForRandom(RandomValue ruleForRandom) {
+        this.ruleForRandom = ruleForRandom;
+    }
+
+    protected void setDefaultAttackModifier() {
+        this.attackModifier = new DefaultAttackModifier();
+    }
+
+    protected void setDefaultDice() {
+        this.dice = new SixEdgedDice();
+    }
+
+    protected void setDefaultRuleForRandom() {
+        this.ruleForRandom = new DefaultRandom();
     }
 
     protected int getAttackValue() {
