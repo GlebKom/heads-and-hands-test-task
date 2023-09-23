@@ -1,5 +1,5 @@
-package Utils;
+package Game;
 
-public interface RandomValue {
+interface RandomValue {
     int randomValue(int lowerLimit, int upperLimit);
 }

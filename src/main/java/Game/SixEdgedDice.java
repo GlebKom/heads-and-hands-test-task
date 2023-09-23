@@ -1,6 +1,6 @@
-package Utils;
+package Game;
 
-public class SixEdgedDice implements DiceToss {
+class SixEdgedDice implements DiceToss {
     private final RandomValue randomValue = new DefaultRandom();
     @Override
     public int toss() {

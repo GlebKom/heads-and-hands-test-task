@@ -1,8 +1,4 @@
-package Characters;
-
-import Utils.*;
-
-import java.util.Random;
+package Game;
 
 public abstract class Creature {
 
@@ -65,7 +61,7 @@ public abstract class Creature {
         }
     }
 
-    protected int getDamageUpperLimit() {
+    int getDamageUpperLimit() {
         return this.damageUpperLimit;
     }
 
@@ -105,9 +101,12 @@ public abstract class Creature {
 
             // checking is at least one dice toss was successful or not, by default it is not
             boolean isSuccess = false;
+            int triesCount = attackModifier.getAttackModifier(this, enemy) > 0
+                    ? attackModifier.getAttackModifier(this, enemy)
+                    : 1;
 
             // tossing a dice
-            for (int tryCount = 0; tryCount < attackModifier.getAttackModifier(this, enemy); tryCount++) {
+            for (int tryCount = 0; tryCount < triesCount; tryCount++) {
                 if (dice.toss() >= 5) {
                     isSuccess = true;
                     break;
