@@ -1,10 +1,8 @@
-package main;
+package Main;
 
 import Characters.Creature;
 import Characters.Monster;
 import Characters.Player;
-import Utils.DiceToss;
-import Utils.SixEdgedDice;
 
 public class Main {
     public static void main(String[] args) {
