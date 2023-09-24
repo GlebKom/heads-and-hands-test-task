@@ -6,7 +6,8 @@
 
 Telegram для связи - @Gleb_Komelin
 
-## Описание проекта
+
+<a name="headers"><h2>Заголовки</h2></a>
 
 Классы лежат в src/main/java
 src/main/java/Game - тут лежат классы.
