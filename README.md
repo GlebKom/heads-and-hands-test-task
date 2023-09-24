@@ -16,6 +16,7 @@ src/main/java/Main - тут лежит класс Main, в котором ест
 
 <a name="logic_descr"><h2>Описание логики классов (почему все сделано именно так)</h2></a>
 
+######
 [Класс Creature](#creature_descr)
 [Класс Person](#person_descr)
 [Класс Monster](#monster_descr)
