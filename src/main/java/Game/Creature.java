@@ -8,9 +8,26 @@ public abstract class Creature {
     private final int damageLowerLimit;
     private final int damageUpperLimit;
     private final long MAX_HP_VALUE;
+
+    // this field
     private AttackModifier attackModifier;
     private DiceToss dice;
-    private RandomValue ruleForRandom;
+    private RandomValue randomValue;
+
+    {
+        setDefaultDice();
+        setDefaultAttackModifier();
+        setDefaultRuleForRandom();
+    }
+
+    public Creature() {
+        this.attackValue = randomValue.getRandomValue(5, 20);
+        this.defendValue = randomValue.getRandomValue(5, 20);
+        this.HPValue = randomValue.getRandomValue(10, 50);
+        this.damageLowerLimit = randomValue.getRandomValue(1, 5);
+        this.damageUpperLimit = randomValue.getRandomValue(damageLowerLimit + 1, damageLowerLimit + 6);
+        this.MAX_HP_VALUE = HPValue;
+    }
 
     public Creature(int attackValue,
                     int defendValue,
@@ -26,6 +43,8 @@ public abstract class Creature {
             throw new IllegalArgumentException("HP value must be greater than or equal to 0");
         } else if (damageLowerLimit > damageUpperLimit) {
             throw new IllegalArgumentException("Damage upper limit must be greater than damage lower limit");
+        } else if (damageLowerLimit < 0 || damageUpperLimit < 0) {
+            throw new IllegalArgumentException("Damage limits must be greater than 0");
         }
 
         this.attackValue = attackValue;
@@ -34,10 +53,6 @@ public abstract class Creature {
         this.MAX_HP_VALUE = HPValue;
         this.damageLowerLimit = damageLowerLimit;
         this.damageUpperLimit = damageUpperLimit;
-
-        setDefaultDice();
-        setDefaultAttackModifier();
-        setDefaultRuleForRandom();
     }
 
     protected void setAttackModifier(AttackModifier attackModifier) {
@@ -48,8 +63,8 @@ public abstract class Creature {
         this.dice = dice;
     }
 
-    protected void setRuleForRandom(RandomValue ruleForRandom) {
-        this.ruleForRandom = ruleForRandom;
+    protected void setRandomValue(RandomValue randomValue) {
+        this.randomValue = randomValue;
     }
 
     protected void setDefaultAttackModifier() {
@@ -61,34 +76,29 @@ public abstract class Creature {
     }
 
     protected void setDefaultRuleForRandom() {
-        this.ruleForRandom = new DefaultRandom();
-    }
-
-    protected int getAttackValue() {
-        return attackValue;
-    }
-
-    protected int getDefendValue() {
-        return defendValue;
-    }
-
-
-    protected long getHPValue() {
-        return this.HPValue;
-    }
-
-    protected boolean isAlive() {
-        return this.getHPValue() > 0;
+        this.randomValue = new DefaultRandomValue();
     }
 
     protected void setHPValue(long HPValue) {
         if (HPValue <= 0) {
             // hp < 0 means, that this character is already dead
             this.HPValue = 0;
-
         } else {
             this.HPValue = HPValue;
         }
+    }
+
+    public int getAttackValue() {
+        return attackValue;
+    }
+
+    public int getDefendValue() {
+        return defendValue;
+    }
+
+
+    public long getHPValue() {
+        return this.HPValue;
     }
 
     int getDamageUpperLimit() {
@@ -99,8 +109,12 @@ public abstract class Creature {
         return this.damageLowerLimit;
     }
 
-    protected long getMAX_HP_VALUE() {
+    public long getMAX_HP_VALUE() {
         return MAX_HP_VALUE;
+    }
+
+    public boolean isAlive() {
+        return this.getHPValue() > 0;
     }
 
     public void attack(Creature enemy){
@@ -113,18 +127,18 @@ public abstract class Creature {
         if (!this.isAlive()) {
 
             // if this character is already dead
-            System.out.println(this.getClass().getName() + " wants revenge and still can't believe he's already dead.");
+            System.out.println(this.getClass().getName() + " can't attack, because he is dead");
 
         } else if (!enemy.isAlive()) {
 
             // if enemy character is already dead
-            System.out.println(this.getClass().getName() + " wanted to fight, but, unfortunately, " +
+            System.out.println(this.getClass().getName() + " wanted to fight, but " +
                     enemy.getClass().getName() + " is already dead.");
 
         } else {
 
             // checking is at least one dice toss was successful or not, by default it is not
-            boolean isSuccess = false;
+            boolean isDiceSuccessful = false;
             int triesCount = this.attackModifier.getAttackModifier(this, enemy) > 0
                     ? this.attackModifier.getAttackModifier(this, enemy)
                     : 1;
@@ -132,14 +146,14 @@ public abstract class Creature {
             // tossing a dice
             for (int tryCount = 0; tryCount < triesCount; tryCount++) {
                 if (dice.toss() >= 5) {
-                    isSuccess = true;
+                    isDiceSuccessful = true;
                     break;
                 }
             }
 
             // decreasing enemy's hp if toss was successful
-            if (isSuccess) {
-                int damageGiven = ruleForRandom.randomValue(this.getDamageLowerLimit(), this.getDamageUpperLimit());
+            if (isDiceSuccessful) {
+                int damageGiven = randomValue.getRandomValue(this.getDamageLowerLimit(), this.getDamageUpperLimit());
 
                 enemy.setHPValue(enemy.getHPValue() - damageGiven);
 
@@ -149,6 +163,10 @@ public abstract class Creature {
             } else {
                 System.out.println(this.getClass().getName() + " tried to attack " + enemy.getClass().getName() +
                         " but failed ");
+            }
+
+            if (isDiceSuccessful && !enemy.isAlive()) {
+                System.out.println(this.getClass().getName() + " killed " + enemy.getClass().getName());
             }
         }
     }
