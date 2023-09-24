@@ -56,7 +56,7 @@ src/main/java/Main - тут лежит класс Main, в котором ест
 
 <a name="random_value_descr"><h3>Интерфейс RandomValue и класс DefaultRandomValue</h3></a>
 
-Интерфейс **RandomValue** имеет один метод *getRandomValue*, принимающий значения начала и конца диапазона для выборки случайного числа, на выход дает одно случайное число из диапазона. **DefaultRandomValue** реализует этот интерфейс, "под капотом" имеет встроенный "java.util.Random".
+Интерфейс **RandomValue** имеет один метод *getRandomValue*, принимающий значения начала и конца диапазона для выборки случайного числа, на выход дает одно случайное число из диапазона. **DefaultRandomValue** реализует этот интерфейс, "под капотом" имеет встроенный в Java "java.util.Random".
 
 <a name="dice_toss_descr"><h3>Интерфейс DiceToss и класс SixEdgedDice</h3></a>
 
