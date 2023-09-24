@@ -52,7 +52,7 @@ src/main/java/Main - тут лежит класс Main, в котором ест
 
 <a name="attack_modifier_descr"><h3>Интерфейс AttackModifier и класс DefaultAttackModifier</h3></a>
 
-О причинах создания данного интерфейса и его реализациях сказано в [Класс Person](#person_descr). Интерфейс **AttackModifier** имеет один метод *getAttackModifier*, возвращающий значение модификатора атаки (int), на вход получающий два объектa типа **Creature** атакующего и защищающегося соответственно. **DefaultAttackModifier** соответственно реализует этот интерфес исходя из логики, описанной в задании.
+О причинах создания данного интерфейса и его реализациях сказано в [Класс Creature](#creature_descr). Интерфейс **AttackModifier** имеет один метод *getAttackModifier*, возвращающий значение модификатора атаки (int), на вход получающий два объектa типа **Creature** атакующего и защищающегося соответственно. **DefaultAttackModifier** соответственно реализует этот интерфес исходя из логики, описанной в задании.
 
 <a name="random_value_descr"><h3>Интерфейс RandomValue и класс DefaultRandomValue</h3></a>
 
