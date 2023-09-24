@@ -177,11 +177,14 @@ public abstract class Creature {
 
     // just showing info about the creature
     public void showInfo() {
-        System.out.printf("Name: %s\n" +
-                "Attack value : %d\n" +
-                "Armor value : %d\n" +
-                "HP value : %d\n" +
-                "Damage : %d - %d\n\n",
+        System.out.printf("""
+                        Name: %s
+                        Attack value : %d
+                        Armor value : %d
+                        HP value : %d
+                        Damage : %d - %d
+
+                        """,
                 this.getClass().getName(),
                 this.getAttackValue(),
                 this.getDefendValue(),
