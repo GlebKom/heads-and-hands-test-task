@@ -11,7 +11,7 @@ Telegram для связи - @Gleb_Komelin
 
 Классы лежат в src/main/java
 
-src/main/java/Game - тут лежат классы.
+src/main/java/Game - тут лежат классы существ и т.д.
 
 src/main/java/Main - тут лежит класс Main, в котором есть метод main, который показывает примеры использования методов и классов из Game.
 
