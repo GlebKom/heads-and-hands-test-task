@@ -1,6 +1,5 @@
 package Main;
 
-import Game.Creature;
 import Game.Monster;
 import Game.Player;
 

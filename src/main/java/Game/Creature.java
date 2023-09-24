@@ -9,11 +9,12 @@ public abstract class Creature {
     private final int damageUpperLimit;
     private final long MAX_HP_VALUE;
 
-    // this field
+    // this fields help in attack logic
     private AttackModifier attackModifier;
     private DiceToss dice;
     private RandomValue randomValue;
 
+    // setting default values for service field
     {
         setDefaultDice();
         setDefaultAttackModifier();
@@ -101,11 +102,11 @@ public abstract class Creature {
         return this.HPValue;
     }
 
-    int getDamageUpperLimit() {
+    public int getDamageUpperLimit() {
         return this.damageUpperLimit;
     }
 
-    protected int getDamageLowerLimit() {
+    public int getDamageLowerLimit() {
         return this.damageLowerLimit;
     }
 
@@ -117,20 +118,19 @@ public abstract class Creature {
         return this.getHPValue() > 0;
     }
 
+
+    // default attack logic
     public void attack(Creature enemy){
 
+        // when character tries to attack himself
         if (this == enemy) {
-            // when character tries to attack himself
             throw new IllegalArgumentException("Character can't hurt himself");
         }
 
+        // if this character is already dead
         if (!this.isAlive()) {
-
-            // if this character is already dead
             System.out.println(this.getClass().getName() + " can't attack, because he is dead");
-
         } else if (!enemy.isAlive()) {
-
             // if enemy character is already dead
             System.out.println(this.getClass().getName() + " wanted to fight, but " +
                     enemy.getClass().getName() + " is already dead.");
@@ -139,6 +139,8 @@ public abstract class Creature {
 
             // checking is at least one dice toss was successful or not, by default it is not
             boolean isDiceSuccessful = false;
+
+            //init count of tries to toss the dice, be default it equals attackModifier, but it has to equal at least 1
             int triesCount = this.attackModifier.getAttackModifier(this, enemy) > 0
                     ? this.attackModifier.getAttackModifier(this, enemy)
                     : 1;
@@ -160,23 +162,29 @@ public abstract class Creature {
                 System.out.println(this.getClass().getName() + " attacked " + enemy.getClass().getName() +
                         " and caused " + damageGiven + " damage. " + enemy.getClass().getName() + "'s HP : " + enemy.getHPValue());
 
+            // else sending a message, that attack was unsuccessful
             } else {
                 System.out.println(this.getClass().getName() + " tried to attack " + enemy.getClass().getName() +
                         " but failed ");
             }
 
+            // checking if that attack killed an enemy, if it is - sending the message
             if (isDiceSuccessful && !enemy.isAlive()) {
                 System.out.println(this.getClass().getName() + " killed " + enemy.getClass().getName());
             }
         }
     }
 
+    // just showing info about the creature
     public void showInfo() {
-        System.out.printf("Name: %s\n" +
-                "Attack value : %d\n" +
-                "Armor value : %d\n" +
-                "HP value : %d\n" +
-                "Damage : %d - %d\n\n",
+        System.out.printf("""
+                        Name: %s
+                        Attack value : %d
+                        Armor value : %d
+                        HP value : %d
+                        Damage : %d - %d
+
+                        """,
                 this.getClass().getName(),
                 this.getAttackValue(),
                 this.getDefendValue(),
