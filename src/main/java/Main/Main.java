@@ -8,7 +8,7 @@ public class Main {
 
         // clearly indicated creatures
         System.out.println("Clearly indicated creatures\n");
-        Monster monster = new Monster(23, 13, 41, 5, 10);
+        Monster monster = new Monster(23, 13, 41, 1, 4);
         Player player = new Player(20, 11, 51, 1, 10);
 
         monster.showInfo();
