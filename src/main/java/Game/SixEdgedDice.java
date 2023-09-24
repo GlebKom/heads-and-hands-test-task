@@ -1,9 +1,9 @@
 package Game;
 
 class SixEdgedDice implements DiceToss {
-    private final RandomValue randomValue = new DefaultRandom();
+    private final RandomValue randomValue = new DefaultRandomValue();
     @Override
     public int toss() {
-        return randomValue.randomValue(1, 6);
+        return randomValue.getRandomValue(1, 6);
     }
 }
