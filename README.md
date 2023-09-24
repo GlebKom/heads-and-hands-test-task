@@ -10,6 +10,7 @@ Telegram для связи - @Gleb_Komelin
 <a name="proj_descr"><h2>Описание проекта</h2></a>
 
 Классы лежат в src/main/java
+
 src/main/java/Game - тут лежат классы.
 
 src/main/java/Main - тут лежит класс Main, в котором есть метод main, который показывает примеры использования методов и классов из Game.
