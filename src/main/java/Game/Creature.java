@@ -42,7 +42,7 @@ public abstract class Creature {
             throw new IllegalArgumentException("Defend value must be in range from 1 to 30");
         } else if (HPValue < 0) {
             throw new IllegalArgumentException("HP value must be greater than or equal to 0");
-        } else if (damageLowerLimit > damageUpperLimit) {
+        } else if (damageLowerLimit >= damageUpperLimit) {
             throw new IllegalArgumentException("Damage upper limit must be greater than damage lower limit");
         } else if (damageLowerLimit < 0 || damageUpperLimit < 0) {
             throw new IllegalArgumentException("Damage limits must be greater than 0");
