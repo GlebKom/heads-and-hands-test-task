@@ -3,6 +3,7 @@
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=HI+THERE!)](https://git.io/typing-svg)
 
 Привет, меня зовут Глеб и я хочу попасть в школу разработчиков "Heads and hands". Здесь вы увидите моё тестовое задание.
+
 Telegram для связи - @Gleb_Komelin
 
 ## Описание проекта
